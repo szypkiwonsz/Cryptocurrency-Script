@@ -1,4 +1,4 @@
-from peewee import CharField, DateTimeField, FloatField, IntegerField, SqliteDatabase, Model
+from peewee import CharField, DateTimeField, FloatField, IntegerField, SqliteDatabase, Model, SQL
 
 
 class DatabaseHandler:
@@ -32,9 +32,10 @@ class Currency(Model):
     high = FloatField()
     low = FloatField()
     close = FloatField()
-    volume = IntegerField()
-    market_cap = IntegerField()
+    volume = IntegerField(null=True)
+    market_cap = IntegerField(null=True)
 
     class Meta:
         """Meta class for a database connection."""
         database = DatabaseHandler.db
+        constraints = [SQL('UNIQUE (name, time_open)')]  # unique fields together to not add duplicates to the database
