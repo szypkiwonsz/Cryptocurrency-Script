@@ -1,4 +1,4 @@
-from peewee import CharField, DateTimeField, FloatField, IntegerField, SqliteDatabase, Model, SQL
+from peewee import CharField, DateTimeField, FloatField, IntegerField, SqliteDatabase, Model, SQL, chunked
 
 
 class DatabaseHandler:
@@ -21,6 +21,24 @@ class DatabaseHandler:
         :param table_class: <peewee.ModelBase> -> class representing the table
         """
         table_class.create_table()
+
+    def insert_data_into_currency(self, data):
+        """
+        Enters data into the 'currency' table.
+        :param data: <list> -> data about currencies
+        """
+        self.insert_data(data, Currency)
+
+    def insert_data(self, data, table_class):
+        """
+        Inserts data into the database.
+        :param data: <list> -> data about currencies
+        :param table_class: <peewee.ModelBase> -> class representing the table
+        """
+        with self.db.atomic():
+            for batch in chunked(data, 10):
+                table_class.insert_many(batch).on_conflict_ignore().execute()
+        table_class.get_or_create()
 
 
 class Currency(Model):
