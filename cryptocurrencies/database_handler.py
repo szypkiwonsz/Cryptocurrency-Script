@@ -56,4 +56,4 @@ class Currency(Model):
     class Meta:
         """Meta class for a database connection."""
         database = DatabaseHandler.db
-        constraints = [SQL('UNIQUE (name, time_open)')]  # unique fields together to not add duplicates to the database
+        constraints = [SQL('UNIQUE (name, time_close)')]  # unique fields together to not add duplicates to the database
