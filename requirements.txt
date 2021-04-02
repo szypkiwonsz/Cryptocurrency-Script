@@ -1,3 +1,4 @@
 peewee==3.14.4
 pandas==1.2.3
 coinpaprika==0.1.0
+click==7.1.2
