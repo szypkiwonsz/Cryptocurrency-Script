@@ -33,14 +33,12 @@ class QueryHandler:
         return self.get_all_currencies_by_name(currency_name).where(Currency.time_close.between(
             start_date, end_date + timedelta(days=1)))
 
-    def get_currencies_column_by_name_between_dates(self, start_date, end_date, currency_name, column_name):
+    def get_currency_column_by_name(self, currency_name, column_name):
         """
-        Gets list with values selected by database column, currency name and between provided dates.
-        :param start_date: <datetime.datetime> -> start date of the searched data
-        :param end_date: <datetime.datetime> -> end date of the searched data
+        Gets list with values selected by database column and currency name.
         :param currency_name: <str> -> currency name
         :param column_name: <str> -> database column name
         :return: <list> -> list of values from selected column
         """
-        currencies = self.get_all_currencies_by_name_between_dates(start_date, end_date, currency_name).dicts()
+        currencies = self.get_all_currencies_by_name(currency_name).dicts()
         return [currency[column_name] for currency in currencies]

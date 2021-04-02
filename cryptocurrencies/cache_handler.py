@@ -19,19 +19,32 @@ class CacheHandler:
         """
         return list(pd.date_range(start_date, end_date).strftime(date_format))
 
-    def database_contains_all_data(self, start_date, end_date, currency_name):
+    @staticmethod
+    def currency_column_contains_all_values(values, column_to_compare, currency_name):
         """
-        Compares whether dates between arguments are contained in the data for a particular currency in the database.
+        Compares whether provided values are contained in the data for a particular currencies in a currency table
+        column in the database.
+        :param values: <list> -> list of values to compare
+        :param column_to_compare: <str> -> database column name
+        :param currency_name: <str> -> currency name
+        :return: <bool> -> True if the values from database contains all the provided values, False if not
+        """
+        temp_query_handler = QueryHandler()
+        currency_column_values = temp_query_handler.get_currency_column_by_name(currency_name, column_to_compare)
+        return set(values).issubset(currency_column_values)
+
+    def currency_time_close_column_contains_required_values(self, start_date, end_date, currency_name):
+        """
+        Compares whether dates between arguments are contained in the data for a particular currencies in a currency
+        table 'time_close' column in the database.
+        column in the database.
         :param start_date: <datetime.datetime> -> start date of the required data
         :param end_date: <datetime.datetime> -> end date of the required data
         :param currency_name: <str> -> currency name
-        :return: <bool> -> True if the data contains all the dates for a particular currency, False if not
+        :return: <bool> -> True if the 'time_close' column values contains all dates between arguments, False if not
         """
-        temp_query_handler = QueryHandler()
         dates_between_arguments = self.get_dates_between_as_list_of_strings(start_date, end_date, '%Y-%m-%dT23:59:59Z')
-        currency_dates_in_database = temp_query_handler.get_currencies_column_by_name_between_dates(
-            start_date, end_date, currency_name, 'time_close')
-        return set(dates_between_arguments).issubset(currency_dates_in_database)
+        return self.currency_column_contains_all_values(dates_between_arguments, 'time_close', currency_name)
 
     def load_data_into_database_if_needed(self, start_date, end_date, currency_name):
         """
@@ -42,7 +55,7 @@ class CacheHandler:
         """
         # initialization before checking the contents of the database due to the possibility of no database created
         temp_database_handler = DatabaseHandler()
-        if not self.database_contains_all_data(start_date, end_date, currency_name):
+        if not self.currency_time_close_column_contains_required_values(start_date, end_date, currency_name):
             temp_json_loader = DataLoader()
             temp_json_loader.load_data_from_api(start_date, end_date, currency_name)
             temp_json_loader.modify_data(currency_name)
