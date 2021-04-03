@@ -10,7 +10,6 @@ from data_loader import DataLoader
 from cache_handler import CacheHandler
 
 
-# fixtures for test_database_handler.py file
 @pytest.fixture()
 def database():
     test_db = SqliteDatabase(':memory:')
@@ -36,7 +35,6 @@ def currencies_data():
     return currencies_data
 
 
-# fixtures and data for test_data_loader.py file
 @pytest.fixture()
 def data_loader():
     data_loader = DataLoader()
@@ -53,7 +51,6 @@ api_content = [
 ]
 
 
-# fixtures for test_cache_handler.py file
 @pytest.fixture()
 def cache_handler():
     cache_handler = CacheHandler()
