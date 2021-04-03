@@ -4,3 +4,4 @@ coinpaprika==0.1.0
 click==7.1.2
 pytest==6.2.2
 pytest-cov==2.11.1
+httmock==1.4.0
