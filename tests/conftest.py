@@ -4,7 +4,7 @@ from peewee import SqliteDatabase
 from cache_handler import CacheHandler
 from data_loader import DataLoader
 from database_handler import DatabaseHandler, Currency
-from query_handler import QueryHandler, DateHandler, PriceHandler
+from query_handler import QueryHandler, DateHandler, PriceHandler, AveragePriceHandler
 
 
 @pytest.fixture()
@@ -80,3 +80,9 @@ def date_handler():
 def price_handler():
     price_handler = PriceHandler()
     return price_handler
+
+
+@pytest.fixture()
+def average_price_handler():
+    average_price_handler = AveragePriceHandler()
+    return average_price_handler

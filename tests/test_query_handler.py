@@ -36,3 +36,18 @@ class TestPriceHandler:
         price_list = price_handler.get_currency_price_by_day_between_dates(
             datetime(2011, 1, 1), datetime(2011, 1, 2), 'usdt-tether')
         assert price_list.to_dict('records')[0]['price'] == 0.4
+
+
+@pytest.mark.average_price_handler
+class TestAveragePriceHandler:
+
+    def test_calculate_average_price_by_month(self, average_price_handler, price_handler, database_with_data):
+        price_list = price_handler.get_currency_price_by_day_between_dates(
+            datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin')
+        average_price = average_price_handler.calculate_average_price_by_month(price_list)
+        assert average_price.to_dict('records')[0]['average price ($)'] == 0.5
+
+    def test_get_average_price_by_month_from_time_period(self, average_price_handler, database_with_data):
+        average_price = average_price_handler.get_average_price_by_month_from_time_period(
+            datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin')
+        assert average_price.to_dict('records')[0]['average price ($)'] == 0.5
