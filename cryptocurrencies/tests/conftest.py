@@ -1,8 +1,13 @@
+import sys
+
 import pytest
 from peewee import SqliteDatabase
 
-from cryptocurrencies.data_loader import DataLoader
-from cryptocurrencies.database_handler import DatabaseHandler, Currency
+sys.path.append('./cryptocurrencies')
+
+from database_handler import DatabaseHandler, Currency
+from data_loader import DataLoader
+from cache_handler import CacheHandler
 
 
 # fixtures for test_database_handler.py file

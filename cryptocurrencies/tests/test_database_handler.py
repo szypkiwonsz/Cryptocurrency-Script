@@ -1,6 +1,6 @@
 import pytest
 
-from cryptocurrencies.database_handler import Currency
+from database_handler import Currency
 
 
 @pytest.mark.database_handler

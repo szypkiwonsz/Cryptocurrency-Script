@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 from httmock import HTTMock, all_requests
 
-from cryptocurrencies.tests.conftest import api_content
+from tests.conftest import api_content
 
 
 @all_requests
