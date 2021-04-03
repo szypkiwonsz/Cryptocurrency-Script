@@ -60,3 +60,4 @@ def cache_handler():
 @pytest.fixture()
 def database_with_data(database_handler, currencies_data):
     database_handler.insert_data_into_currency(currencies_data)
+    return database_handler
