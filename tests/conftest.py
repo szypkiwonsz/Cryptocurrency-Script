@@ -4,7 +4,7 @@ from peewee import SqliteDatabase
 from cache_handler import CacheHandler
 from data_loader import DataLoader
 from database_handler import DatabaseHandler, Currency
-from query_handler import QueryHandler, DateHandler
+from query_handler import QueryHandler, DateHandler, PriceHandler
 
 
 @pytest.fixture()
@@ -26,6 +26,10 @@ def currencies_data():
     currencies_data = [
         {'name': 'btc-bitcoin', 'time_open': '2011-01-01T00:00:00Z', 'time_close': '2011-01-01T23:59:59Z', 'open': 0.3,
          'high': 0.3, 'low': 0.3, 'close': 0.3},
+        {'name': 'btc-bitcoin', 'time_open': '2011-01-02T00:00:00Z', 'time_close': '2011-01-02T23:59:59Z', 'open': 0.5,
+         'high': 0.5, 'low': 0.5, 'close': 0.5},
+        {'name': 'btc-bitcoin', 'time_open': '2011-01-03T00:00:00Z', 'time_close': '2011-01-03T23:59:59Z', 'open': 0.7,
+         'high': 0.7, 'low': 0.7, 'close': 0.7},
         {'name': 'usdt-tether', 'time_open': '2011-01-01T00:00:00Z', 'time_close': '2011-01-01T23:59:59Z', 'open': 0.3,
          'high': 0.3, 'low': 0.3, 'close': 0.4, 'volume': 1245100000, 'market_cap': 38227791402}
     ]
@@ -70,3 +74,9 @@ def query_handler():
 def date_handler():
     date_handler = DateHandler()
     return date_handler
+
+
+@pytest.fixture()
+def price_handler():
+    price_handler = PriceHandler()
+    return price_handler

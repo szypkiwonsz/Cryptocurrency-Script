@@ -27,7 +27,7 @@ class TestCacheHandler:
         assert cache_handler.currency_column_contains_all_values(dates, 'time_open', 'btc-bitcoin') is True
 
     def test_currency_column_contains_all_values_false(self, cache_handler, database_with_data):
-        dates = ['2011-01-01T00:00:00Z', '2011-01-02T00:00:00Z']
+        dates = ['2011-01-01T00:00:00Z', '2011-01-04T00:00:00Z']
         assert cache_handler.currency_column_contains_all_values(dates, 'time_open', 'btc-bitcoin') is False
 
     def test_currency_time_close_column_contains_required_values_true(self, cache_handler, database_with_data):
@@ -36,7 +36,7 @@ class TestCacheHandler:
 
     def test_currency_time_close_column_contains_required_values_false(self, cache_handler, database_with_data):
         assert cache_handler.currency_time_close_column_contains_required_values(
-            datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin') is False
+            datetime(2011, 1, 1), datetime(2011, 1, 5), 'btc-bitcoin') is False
 
     def test_load_data_into_database_if_needed(self, cache_handler, database):
         with patch('database_handler.DatabaseHandler.db') as mock:
