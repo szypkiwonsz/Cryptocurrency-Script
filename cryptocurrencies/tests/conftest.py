@@ -51,3 +51,15 @@ api_content = [
     {"time_open": "2012-02-03T00:00:00Z", "time_close": "2012-02-03T23:59:59Z", "open": 6.1, "high": 6.1,
      "low": 6.1, "close": 6.1}
 ]
+
+
+# fixtures for test_cache_handler.py file
+@pytest.fixture()
+def cache_handler():
+    cache_handler = CacheHandler()
+    return cache_handler
+
+
+@pytest.fixture()
+def database_with_data(database_handler, currencies_data):
+    database_handler.insert_data_into_currency(currencies_data)
