@@ -8,6 +8,7 @@ sys.path.append('./cryptocurrencies')
 from database_handler import DatabaseHandler, Currency
 from data_loader import DataLoader
 from cache_handler import CacheHandler
+from query_handler import QueryHandler
 
 
 @pytest.fixture()
@@ -61,3 +62,9 @@ def cache_handler():
 def database_with_data(database_handler, currencies_data):
     database_handler.insert_data_into_currency(currencies_data)
     return database_handler
+
+
+@pytest.fixture()
+def query_handler():
+    query_handler = QueryHandler()
+    return query_handler
