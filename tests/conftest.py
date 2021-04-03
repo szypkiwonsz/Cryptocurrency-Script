@@ -1,14 +1,10 @@
-import sys
-
 import pytest
 from peewee import SqliteDatabase
 
-sys.path.append('./cryptocurrencies')
-
-from database_handler import DatabaseHandler, Currency
-from data_loader import DataLoader
 from cache_handler import CacheHandler
-from query_handler import QueryHandler
+from data_loader import DataLoader
+from database_handler import DatabaseHandler, Currency
+from query_handler import QueryHandler, DateHandler
 
 
 @pytest.fixture()
@@ -68,3 +64,9 @@ def database_with_data(database_handler, currencies_data):
 def query_handler():
     query_handler = QueryHandler()
     return query_handler
+
+
+@pytest.fixture()
+def date_handler():
+    date_handler = DateHandler()
+    return date_handler
