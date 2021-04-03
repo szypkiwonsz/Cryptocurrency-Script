@@ -29,3 +29,20 @@ def currencies_data():
          'high': 0.3, 'low': 0.3, 'close': 0.4, 'volume': 1245100000, 'market_cap': 38227791402}
     ]
     return currencies_data
+
+
+# fixtures and data for test_data_loader.py file
+@pytest.fixture()
+def data_loader():
+    data_loader = DataLoader()
+    return data_loader
+
+
+api_content = [
+    {"time_open": "2012-02-01T00:00:00Z", "time_close": "2012-02-01T23:59:59Z", "open": 5.48, "high": 5.48,
+     "low": 5.48, "close": 5.48},
+    {"time_open": "2012-02-02T00:00:00Z", "time_close": "2012-02-02T23:59:59Z", "open": 6.08, "high": 6.08,
+     "low": 6.08, "close": 6.08},
+    {"time_open": "2012-02-03T00:00:00Z", "time_close": "2012-02-03T23:59:59Z", "open": 6.1, "high": 6.1,
+     "low": 6.1, "close": 6.1}
+]
