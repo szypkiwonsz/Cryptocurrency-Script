@@ -1,10 +1,11 @@
 import pytest
 from peewee import SqliteDatabase
 
+from cryptocurrencies.data_loader import DataLoader
 from cryptocurrencies.database_handler import DatabaseHandler, Currency
 
 
-# fixtures for database_handler.py file
+# fixtures for test_database_handler.py file
 @pytest.fixture()
 def database():
     test_db = SqliteDatabase(':memory:')
