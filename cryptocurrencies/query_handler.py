@@ -91,7 +91,7 @@ class AveragePriceHandler(PriceHandler):
         :param df: <pandas.core.frame.DataFrame> -> pandas DataFrame with currency prices
         :return: <pandas.core.frame.DataFrame> -> pandas DataFrame with the calculated average currency price
         """
-        df = df.groupby([df['date'].dt.year.rename('year'), df['date'].dt.month.rename('month')]).mean()
+        df = df.groupby([df['date'].dt.year.rename('year'), df['date'].dt.month.rename('month')]).mean().round(2)
         df.rename(columns={'price': 'average price ($)'}, inplace=True)
         return df
 
