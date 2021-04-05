@@ -105,3 +105,52 @@ class AveragePriceHandler(PriceHandler):
         """
         currency_prices = self.get_currency_price_by_day_between_dates(start_date, end_date, currency_name)
         return self.calculate_average_price_by_month(currency_prices)
+
+
+class ConsecutivePriceIncreaseHandler(PriceHandler):
+    """Inheriting class storing methods to get longest consecutive period in which price was increasing."""
+
+    @staticmethod
+    def calculate_consecutive_price_increases(df):
+        """
+        Calculates consecutive currency price increase.
+        :param df: <pandas.core.frame.DataFrame> -> pandas DataFrame with selected currency prices data
+        :return: <pandas.core.frame.DataFrame> -> pandas DataFrame with the currency price increases
+        """
+        df['increase'] = (df['price'] < df['price'].shift(1))
+        df = df.groupby(df['increase'].cumsum(), as_index=False).agg(
+            {'date': ['min', 'max'], 'price': ['count', 'sum']}
+        ).round(2)
+        return df
+
+    def get_consecutive_price_increases_period(self, start_date, end_date, currency_name):
+        """
+        Gets consecutive currency price increases for time period.
+        :param start_date: <datetime.datetime> -> start date
+        :param end_date: <datetime.datetime> -> end date
+        :param currency_name: <str> -> currency name
+        :return: <pandas.core.frame.DataFrame> -> pandas DataFrame with the currency price increases for given period
+        """
+        currency_prices = self.get_currency_price_by_day_between_dates(start_date, end_date, currency_name)
+        return self.calculate_consecutive_price_increases(currency_prices)
+
+    def get_longest_consecutive_price_increases_period(self, start_date, end_date, currency_name):
+        """
+        Gets longest consecutive currency price increases for given period.
+        :param start_date: <datetime.datetime> -> start date
+        :param end_date: <datetime.datetime> -> end date
+        :param currency_name: <str> -> currency name
+        :return: <pandas.core.frame.DataFrame> -> pandas DataFrame with the longest currency price increases
+        """
+        price_increases = self.get_consecutive_price_increases_period(start_date, end_date, currency_name)
+        return price_increases[price_increases['price']['count'] == price_increases['price']['count'].max()]
+
+    @staticmethod
+    def get_longest_consecutive_price_increase_as_msg(df_record):
+        """
+        Gets longest consecutive currency price increase information as message.
+        :param df_record: <dict> -> longest currency price increase data
+        :return: <str> -> message about longest currency price increase
+        """
+        return (f'Longest consecutive period was from {(df_record[("date", "min")]).date()} to '
+                f'{(df_record[("date", "max")]).date()} with increase of ${df_record[("price", "sum")]}')
