@@ -2,7 +2,7 @@ import pytest
 from peewee import SqliteDatabase
 
 from cache_handler import CacheHandler
-from data_loader import DataLoader
+from data_loader import ApiDataLoader
 from database_handler import DatabaseHandler, Currency
 from query_handler import QueryHandler, DateHandler, PriceHandler, AveragePriceHandler, ConsecutivePriceIncreaseHandler
 
@@ -38,7 +38,7 @@ def currencies_data():
 
 @pytest.fixture()
 def data_loader():
-    data_loader = DataLoader()
+    data_loader = ApiDataLoader()
     return data_loader
 
 

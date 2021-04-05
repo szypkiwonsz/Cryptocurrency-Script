@@ -1,6 +1,6 @@
 import pandas as pd
 
-from data_loader import DataLoader
+from data_loader import ApiDataLoader
 from database_handler import DatabaseHandler
 from query_handler import QueryHandler
 
@@ -56,7 +56,7 @@ class CacheHandler:
         # initialization before checking the contents of the database due to the possibility of no database created
         temp_database_handler = DatabaseHandler()
         if not self.currency_time_close_column_contains_required_values(start_date, end_date, currency_name):
-            temp_json_loader = DataLoader()
-            temp_json_loader.load_data_from_api(start_date, end_date, currency_name)
-            temp_json_loader.modify_data(currency_name)
-            temp_database_handler.insert_data_into_currency(temp_json_loader.data)
+            temp_api_data_loader = ApiDataLoader()
+            temp_api_data_loader.load_data_from_api(start_date, end_date, currency_name)
+            temp_api_data_loader.modify_data(currency_name)
+            temp_database_handler.insert_data_into_currency(temp_api_data_loader.data)

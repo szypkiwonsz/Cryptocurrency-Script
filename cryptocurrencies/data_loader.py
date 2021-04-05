@@ -2,9 +2,11 @@ from datetime import timedelta
 
 from coinpaprika import client as Coinpaprika
 
+from query_handler import DateHandler
 
-class DataLoader:
-    """Class that loads and modifies data stored in list of json objects."""
+
+class ApiDataLoader:
+    """Class that loads and modifies data from api stored in list of json objects."""
 
     def __init__(self):
         self.data = []
