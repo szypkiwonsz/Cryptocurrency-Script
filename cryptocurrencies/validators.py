@@ -9,7 +9,7 @@ def validate_dates(ctx, param, value):
     earlier than argument 'end_date'.
     """
     if ctx.params['start_date'] > value:
-        raise click.BadParameter(f'the date value must be equal or later than: {str(ctx.params["start_date"])[:7]}')
+        raise click.BadParameter(f'the date value must be equal or later than: {(ctx.params["start_date"]).date()}')
     elif value > datetime.now():
-        raise click.BadParameter(f'the date value must be equal or earlier than {str(datetime.now())[:7]}')
+        raise click.BadParameter(f'the date value must be equal or earlier than {(datetime.now().date())}')
     return value
