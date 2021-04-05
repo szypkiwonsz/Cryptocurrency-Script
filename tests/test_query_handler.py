@@ -51,3 +51,35 @@ class TestAveragePriceHandler:
         average_price = average_price_handler.get_average_price_by_month_from_time_period(
             datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin')
         assert average_price.to_dict('records')[0]['average price ($)'] == 0.5
+
+
+@pytest.mark.consecutive_price_increase_handler
+class TestConsecutivePriceIncreaseHandler:
+
+    def test_calculate_consecutive_price_increases(self, consecutive_price_increase_handler, price_handler,
+                                                   database_with_data):
+        price_list = price_handler.get_currency_price_by_day_between_dates(
+            datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin')
+        price_increases = consecutive_price_increase_handler.calculate_consecutive_price_increases(price_list)
+        assert price_increases.to_dict('records')[0][('price', 'sum')] == 1.5
+
+    def test_get_consecutive_price_increases_period(self, consecutive_price_increase_handler, database_with_data):
+        price_increases = consecutive_price_increase_handler.get_consecutive_price_increases_period(
+            datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin')
+        assert price_increases.to_dict('records')[0][('price', 'sum')] == 1.5
+
+    def test_get_longest_consecutive_price_increases_period(self, consecutive_price_increase_handler,
+                                                            database_with_data):
+        longest_increases = consecutive_price_increase_handler.get_longest_consecutive_price_increases_period(
+            datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin')
+        assert longest_increases.to_dict('records')[0][('price', 'sum')] == 1.5
+
+    def test_get_longest_consecutive_price_increase_as_msg(self, consecutive_price_increase_handler,
+                                                           database_with_data):
+        longest_increases_records = consecutive_price_increase_handler.get_longest_consecutive_price_increases_period(
+            datetime(2011, 1, 1), datetime(2011, 1, 3), 'btc-bitcoin').to_dict('records')
+        longest_increase_record = longest_increases_records[0]
+        longest_increase_msg = consecutive_price_increase_handler.get_longest_consecutive_price_increase_as_msg(
+            longest_increase_record)
+        assert longest_increase_msg == ('Longest consecutive period was from 2011-01-01 to 2011-01-03 with increase '
+                                        'of $1.5')
