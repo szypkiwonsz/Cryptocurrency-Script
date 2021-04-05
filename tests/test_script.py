@@ -20,7 +20,7 @@ runner = CliRunner()
 
 
 @pytest.mark.script
-class TestScript:
+class TestAveragePriceByMonth:
 
     def test_average_price_by_month(self, database):
         with patch('database_handler.DatabaseHandler.db') as mock:
