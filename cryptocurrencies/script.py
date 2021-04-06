@@ -32,7 +32,7 @@ def consecutive_increase(start_date, end_date, coin):
     temp_cache_handler = CacheHandler()
     temp_cache_handler.load_data_into_database_if_needed(start_date, end_date, coin)
     temp_consecutive_price_increase_handler = ConsecutivePriceIncreaseHandler()
-    # it is possible to return multiple results
+    # it is possible to return multiple results (the longest not the greatest result)
     longest_price_increases = temp_consecutive_price_increase_handler.get_longest_consecutive_price_increases_period(
         start_date, end_date, coin).to_dict('records')
     for record in longest_price_increases:
