@@ -57,7 +57,7 @@ class DatabaseDataLoader:
         :param currency_name: <str> -> currency name
         """
         temp_date_handler = DateHandler()
-        self.data = temp_date_handler.get_all_currencies_by_name_between_dates(
+        self.data = temp_date_handler.get_all_currency_by_name_between_dates(
             start_date, end_date, currency_name).dicts()
 
     @staticmethod
