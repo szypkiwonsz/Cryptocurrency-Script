@@ -91,20 +91,20 @@ python script.py consecutive-increase --start_date=2011-02-03 --end_date=2011-05
 Export data for given period in json format
 
 ```
-python script.py export --start-date=2021-01-01 --end-date=2021-01-03 --format_type=json --file=exported_data.json
+python script.py export --start_date=2021-01-01 --end_date=2021-01-03 --format_type=json --file=exported_data.json
 ```
 ```
-python script.py export --start-date=2021-01-01 --end-date=2021-01-03 --format_type=json --file=exported_data
+python script.py export --start_date=2021-01-01 --end_date=2021-01-03 --format_type=json --file=exported_data
 ```
 ---
 
 Export data for given period in csv format
 
 ```
-python script.py export --start-date=2021-01-01 --end-date=2021-01-03 --format_type=csv --file=exported_data.csv
+python script.py export --start_date=2021-01-01 --end_date=2021-01-03 --format_type=csv --file=exported_data.csv
 ```
 ```
-python script.py export --start-date=2021-01-01 --end-date=2021-01-03 --format_type=csv --file=exported_data
+python script.py export --start_date=2021-01-01 --end_date=2021-01-03 --format_type=csv --file=exported_data
 ```
 ---
 ## Built With
