@@ -70,5 +70,4 @@ class DatabaseDataLoader:
 
     def modify_data(self):
         """Modifies the elements of data needed for the correct operation of the program."""
-        for element in self.data:
-            self.change_dictionary_items(element)
+        self.data = [self.change_dictionary_items(element) for element in self.data]
