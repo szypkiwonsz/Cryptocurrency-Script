@@ -183,7 +183,7 @@ class TestExport:
     def test_average_price_by_month_too_late_start_date(self):
         next_month = datetime.now() + relativedelta(months=1)
         response = runner.invoke(export, [
-            f'--start_date={str(next_month)[:10]}', f'--end_date=2011-12-01'
+            f'--start_date={str(next_month)[:10]}', f'--end_date=2011-12-01', '--format_type=json', '--file=data.json'
         ])
         assert response.exit_code == 2
 
