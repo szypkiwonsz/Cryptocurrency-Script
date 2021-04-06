@@ -38,7 +38,6 @@ class DatabaseHandler:
         with self.db.atomic():
             for batch in chunked(data, 1):
                 table_class.insert_many(batch).on_conflict_ignore().execute()
-        table_class.get_or_create()
 
 
 class Currency(Model):
