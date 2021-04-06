@@ -27,6 +27,6 @@ class CsvExporter:
         :param data: -> data to be exported
         """
         with open(file_name, 'w', newline='') as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=data[0].keys())
+            writer = csv.DictWriter(outfile, fieldnames=['Date', 'Price'])
             writer.writeheader()
             writer.writerows([row for row in data])
