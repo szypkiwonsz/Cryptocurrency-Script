@@ -24,7 +24,7 @@ class CsvExporter:
         """
         Exports data into csv file.
         :param file_name: <str> -> name of the file
-        :param data: data to be exported
+        :param data: -> data to be exported
         """
         with open(file_name, 'w', newline='') as outfile:
             writer = csv.DictWriter(outfile, fieldnames=data[0].keys())

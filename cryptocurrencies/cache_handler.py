@@ -37,7 +37,6 @@ class CacheHandler:
         """
         Compares whether dates between arguments are contained in the data for a particular currencies in a currency
         table 'time_close' column in the database.
-        column in the database.
         :param start_date: <datetime.datetime> -> start date of the required data
         :param end_date: <datetime.datetime> -> end date of the required data
         :param currency_name: <str> -> currency name
