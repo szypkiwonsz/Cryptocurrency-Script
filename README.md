@@ -59,7 +59,7 @@ Do the same as for running the script
 Open terminal with choosen folder "Cryptocurrency-Script>"
 ```
 ```
-Type: pytest -v or pytest-v --cov=cryptocurrencies (to check coverage of tests)
+Type: pytest -v or pytest -v --cov=cryptocurrencies (to check coverage of tests)
 ```
 ---
 ### Available commands with example inputs
