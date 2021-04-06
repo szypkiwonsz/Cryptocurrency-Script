@@ -12,6 +12,12 @@ def date_with_last_day_of_month(date):
 
 
 def file_with_extension(file_name, extension):
+    """
+    Returns file with extension if it's not in file name.
+    :param file_name: <str> -> name of the file
+    :param extension: <str> -> extension of the file
+    :return: <str> -> file name with extension
+    """
     if file_name.split('.')[-1] != extension:
         return f'{file_name}.{extension}'
     return file_name
