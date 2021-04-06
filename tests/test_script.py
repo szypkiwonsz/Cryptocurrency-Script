@@ -54,7 +54,7 @@ class TestAveragePriceByMonth:
         assert response.exit_code == 2
 
     def test_average_price_by_month_end_date_before_start_date(self):
-        response = runner.invoke(average_price_by_month, ['--start_date=2012-01', f'--end_date=2011-12'])
+        response = runner.invoke(average_price_by_month, ['--start_date=2012-01', '--end_date=2011-12'])
         assert response.exit_code == 2
 
     def test_average_price_by_month_wrong_arguments(self):
@@ -83,16 +83,16 @@ class TestConsecutiveIncrease:
                 assert response.exit_code == 0
                 assert '$17.66' in response.output
 
-    def test_average_price_by_month_too_early_start_date(self):
+    def test_consecutive_increase_by_month_too_early_start_date(self):
         response = runner.invoke(consecutive_increase, [
-            f'--start_date=2008-12-31', f'--end_date=2011-12-01'
+            '--start_date=2008-12-31', '--end_date=2011-12-01'
         ])
         assert response.exit_code == 2
 
     def test_average_price_by_month_too_late_start_date(self):
         next_month = datetime.now() + relativedelta(months=1)
         response = runner.invoke(consecutive_increase, [
-            f'--start_date={str(next_month)[:10]}', f'--end_date=2011-12-01'
+            f'--start_date={str(next_month)[:10]}', '--end_date=2011-12-01'
         ])
         assert response.exit_code == 2
 
@@ -104,11 +104,11 @@ class TestConsecutiveIncrease:
         assert response.exit_code == 2
 
     def test_consecutive_increase_end_date_before_start_date(self):
-        response = runner.invoke(consecutive_increase, ['--start_date=2012-01-01', f'--end_date=2011-12-01'])
+        response = runner.invoke(consecutive_increase, ['--start_date=2012-01-01', '--end_date=2011-12-01'])
         assert response.exit_code == 2
 
     def test_consecutive_increase_wrong_arguments(self):
-        response = runner.invoke(consecutive_increase, ['--start_date=2012-01', f'--end_date=2011-12'])
+        response = runner.invoke(consecutive_increase, ['--start_date=2012-01', '--end_date=2011-12'])
         assert response.exit_code == 2
 
 
@@ -190,16 +190,16 @@ class TestExport:
                 assert response.exit_code == 0
                 assert 'data.csv' in response.output
 
-    def test_average_price_by_month_too_early_start_date(self):
+    def test_export_by_month_too_early_start_date(self):
         response = runner.invoke(export, [
-            f'--start_date=2008-12-31', f'--end_date=2011-12-01', '--format_type=json', '--file=data.json'
+            '--start_date=2008-12-31', '--end_date=2011-12-01', '--format_type=json', '--file=data.json'
         ])
         assert response.exit_code == 2
 
     def test_average_price_by_month_too_late_start_date(self):
         next_month = datetime.now() + relativedelta(months=1)
         response = runner.invoke(export, [
-            f'--start_date={str(next_month)[:10]}', f'--end_date=2011-12-01', '--format_type=json', '--file=data.json'
+            f'--start_date={str(next_month)[:10]}', '--end_date=2011-12-01', '--format_type=json', '--file=data.json'
         ])
         assert response.exit_code == 2
 
@@ -211,11 +211,12 @@ class TestExport:
         assert response.exit_code == 2
 
     def test_export_end_date_before_start_date(self):
-        response = runner.invoke(export, ['--start_date=2012-01-01', f'--end_date=2011-12-01'])
+        response = runner.invoke(export, ['--start_date=2012-01-01', '--end_date=2011-12-01', '--format_type=json',
+                                          '--file=data.json'])
         assert response.exit_code == 2
 
     def test_export_wrong_arguments(self):
         response = runner.invoke(export, [
-            '--start_date=2012-01-01', f'--end_date=2011-12-01', '--format_type=wrong', '--file=data.json'
+            '--start_date=2012-01-01', '--end_date=2011-12-01', '--format_type=wrong', '--file=data.json'
         ])
         assert response.exit_code == 2
