@@ -1,6 +1,8 @@
 from datetime import timedelta
 
+import click
 from coinpaprika import client as Coinpaprika
+from coinpaprika.exceptions import CoinpaprikaAPIException
 
 from query_handler import DateHandler
 
@@ -20,7 +22,12 @@ class ApiDataLoader:
         """
         client = Coinpaprika.Client()
         while start_date <= end_date:
-            self.data += client.candles(currency_name, start=start_date.date(), end=end_date.date())
+            try:
+                self.data += client.candles(currency_name, start=start_date.date(), end=end_date.date())
+            except CoinpaprikaAPIException as e:
+                if e.message == 'id not found':  # handle non-existent '--coin' parameter
+                    raise click.BadParameter("non-existent parameter '--coin' was entered")
+                raise e
             # the start_date must be increased by 365 days due to the error with not uploading one day from a leap year
             start_date += timedelta(days=365)
 
