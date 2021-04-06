@@ -3,10 +3,20 @@ from datetime import datetime
 import click
 
 
-def validate_dates(ctx, param, value):
+def validate_start_date(ctx, param, value):
     """
     Validator for the 'click' command line interface, checking whether the entered date as argument 'start_date' is
-    earlier than argument 'end_date'.
+    later than current date.
+    """
+    if value > datetime.now():
+        raise click.BadParameter(f'the date value must be equal or earlier than {(datetime.now().date())}')
+    return value
+
+
+def validate_end_date(ctx, param, value):
+    """
+    Validator for the 'click' command line interface, checking whether the entered date as argument 'start_date' is
+    earlier than argument 'end_date' and 'end_date' argument is later than current date.
     """
     if ctx.params['start_date'] > value:
         raise click.BadParameter(f'the date value must be equal or later than: {(ctx.params["start_date"]).date()}')
