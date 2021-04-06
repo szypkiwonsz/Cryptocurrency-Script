@@ -2,7 +2,7 @@ import pytest
 from peewee import SqliteDatabase
 
 from cache_handler import CacheHandler
-from data_loader import ApiDataLoader
+from data_loaders import ApiDataLoader
 from database_handler import DatabaseHandler, Currency
 from query_handler import QueryHandler, DateHandler, PriceHandler, AveragePriceHandler, ConsecutivePriceIncreaseHandler
 

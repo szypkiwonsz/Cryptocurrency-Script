@@ -2,7 +2,7 @@ import click
 
 from cache_handler import CacheHandler
 from data_exporters import JsonExporter, CsvExporter
-from data_loader import DatabaseDataLoader
+from data_loaders import DatabaseDataLoader
 from query_handler import AveragePriceHandler, ConsecutivePriceIncreaseHandler
 from utils import date_with_last_day_of_month
 from validators import validate_format_type, validate_start_date, validate_end_date

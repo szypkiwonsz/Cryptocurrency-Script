@@ -1,6 +1,6 @@
 import pandas as pd
 
-from data_loader import ApiDataLoader
+from data_loaders import ApiDataLoader
 from database_handler import DatabaseHandler
 from query_handler import QueryHandler
 
