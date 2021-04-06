@@ -39,6 +39,10 @@ class TestAveragePriceByMonth:
                 assert response.exit_code == 0
                 assert '5.48' in response.output
 
+    def test_average_price_by_month_too_early_start_date(self):
+        response = runner.invoke(average_price_by_month, [f'--start_date=2008-12-31', f'--end_date=2011-12'])
+        assert response.exit_code == 2
+
     def test_average_price_by_month_too_late_start_date(self):
         next_month = datetime.now() + relativedelta(months=1)
         response = runner.invoke(average_price_by_month, [f'--start_date={str(next_month)[:7]}', f'--end_date=2011-12'])
@@ -78,6 +82,12 @@ class TestConsecutiveIncrease:
                 ])
                 assert response.exit_code == 0
                 assert '$17.66' in response.output
+
+    def test_average_price_by_month_too_early_start_date(self):
+        response = runner.invoke(consecutive_increase, [
+            f'--start_date=2008-12-31', f'--end_date=2011-12-01'
+        ])
+        assert response.exit_code == 2
 
     def test_average_price_by_month_too_late_start_date(self):
         next_month = datetime.now() + relativedelta(months=1)
@@ -179,6 +189,12 @@ class TestExport:
                     mocked_file.assert_called_once_with('data.csv', 'w', newline='')
                 assert response.exit_code == 0
                 assert 'data.csv' in response.output
+
+    def test_average_price_by_month_too_early_start_date(self):
+        response = runner.invoke(export, [
+            f'--start_date=2008-12-31', f'--end_date=2011-12-01', '--format_type=json', '--file=data.json'
+        ])
+        assert response.exit_code == 2
 
     def test_average_price_by_month_too_late_start_date(self):
         next_month = datetime.now() + relativedelta(months=1)
