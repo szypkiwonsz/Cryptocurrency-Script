@@ -40,3 +40,34 @@ class ApiDataLoader:
         """
         for element in self.data:
             self.update_dictionary_with_name(element, currency_name)
+
+
+class DatabaseDataLoader:
+    """Class that loads and modifies data from database stored in list of dict objects."""
+
+    def __init__(self):
+        self.data = []
+
+    def load_data_from_database(self, start_date, end_date, currency_name):
+        """
+        Loads a specific data about currencies from a given time period from database.
+        :param start_date: <datetime.datetime> -> start date of the required data
+        :param end_date: <datetime.datetime> -> end date of the required data
+        :param currency_name: <str> -> currency name
+        """
+        temp_date_handler = DateHandler()
+        self.data = temp_date_handler.get_all_currencies_by_name_between_dates(
+            start_date, end_date, currency_name).dicts()
+
+    @staticmethod
+    def change_dictionary_items(currency_data):
+        """
+        Changes dictionary items into new one.
+        :param currency_data: <dict> -> dictionary with currency data
+        """
+        return {'Date': currency_data['time_close'][:10], 'Price': currency_data['close']}
+
+    def modify_data(self):
+        """Modifies the elements of data needed for the correct operation of the program."""
+        for element in self.data:
+            self.change_dictionary_items(element)
